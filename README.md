@@ -1,4 +1,4 @@
-# 🌱 AgroSmart
+#  AgroSmart
 
 > O aplicativo que leva a tecnologia ao pequeno agricultor.
 
@@ -10,9 +10,9 @@ AgroSmart é uma plataforma web de monitoramento agrícola em tempo real, desenv
 
 - **Página institucional** com informações sobre leis ambientais na agricultura
 - **Painel de monitoramento em tempo real** com sensores simulados
-- 🌡️ Sensor de **temperatura do ar**
-- 💧 Sensor de **umidade do solo**
-- 🌫️ **Detector de fumaça** com alerta de incêndio
+-  Sensor de **temperatura do ar**
+-  Sensor de **umidade do solo**
+-  **Detector de fumaça** com alerta de incêndio
 - Cenários de simulação: Dia Normal, Seca Intensa, Pós-Chuva e Incêndio
 - Histórico de leituras com status visual
 - Alertas automáticos com recomendações
@@ -54,7 +54,7 @@ Ou arraste a pasta para [vercel.com/new](https://vercel.com/new).
 
 ---
 
-## 📁 Estrutura do projeto
+##  Estrutura do projeto
 
 ```
 agrosmart/
