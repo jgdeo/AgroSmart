@@ -19,7 +19,7 @@ AgroSmart é uma plataforma web de monitoramento agrícola em tempo real, desenv
 
 ---
 
-## 🚀 Como usar
+##  Como usar
 
 ### Opção 1 — Abrir direto no navegador
 
@@ -44,7 +44,7 @@ Ou arraste a pasta para [vercel.com/new](https://vercel.com/new).
 
 ---
 
-## 🛠️ Tecnologias
+##  Tecnologias
 
 - HTML5 puro (sem frameworks)
 - CSS3 com variáveis e animações
@@ -66,7 +66,7 @@ agrosmart/
 
 ---
 
-## 👨‍🌾 Sobre o projeto
+##  Sobre o projeto
 
 Desenvolvido como ferramenta de apoio ao pequeno produtor rural, traduzindo dados complexos do campo em informações simples e acessíveis, promovendo conformidade ambiental e eficiência produtiva.
 
