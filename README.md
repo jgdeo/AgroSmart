@@ -6,7 +6,7 @@ AgroSmart é uma plataforma web de monitoramento agrícola em tempo real, desenv
 
 ---
 
-## 📋 Funcionalidades
+##  Funcionalidades
 
 - **Página institucional** com informações sobre leis ambientais na agricultura
 - **Painel de monitoramento em tempo real** com sensores simulados
@@ -72,6 +72,6 @@ Desenvolvido como ferramenta de apoio ao pequeno produtor rural, traduzindo dado
 
 ---
 
-## 📄 Licença
+##  Licença
 
 MIT License — livre para uso, modificação e distribuição.
