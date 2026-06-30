@@ -1,0 +1,852 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AgroSmart — O Aplicativo que Leva a Tecnologia ao Pequeno Agricultor</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;900&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --verde-escuro: #2d4a1e;
+    --verde-medio: #3d5c28;
+    --verde-card: #3a5520;
+    --amarelo: #e8c832;
+    --amarelo-hover: #f5d84a;
+    --texto: #e8e0d0;
+    --texto-escuro: #1a2e0e;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Open Sans', sans-serif; background: var(--verde-escuro); color: var(--texto); overflow-x: hidden; }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 48px; height: 64px;
+    background: rgba(29,45,15,0.95); backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(232,200,50,0.15);
+  }
+  .nav-logo { font-family: 'Montserrat',sans-serif; font-weight: 900; font-size: 1.5rem; color: var(--amarelo); }
+  .nav-menu { display: flex; gap: 8px; align-items: center; list-style: none; }
+  .nav-menu a {
+    font-family: 'Montserrat',sans-serif; font-weight: 600; font-size: 0.8rem;
+    color: var(--texto); text-decoration: none; letter-spacing: 0.8px;
+    text-transform: uppercase; padding: 6px 14px; border-radius: 4px;
+    transition: color 0.2s, background 0.2s;
+  }
+  .nav-menu a:hover { color: var(--amarelo); background: rgba(232,200,50,0.1); }
+  .nav-cta { background: var(--amarelo) !important; color: var(--texto-escuro) !important; padding: 8px 20px !important; border-radius: 6px !important; font-weight: 700 !important; }
+  .nav-cta:hover { background: var(--amarelo-hover) !important; }
+
+  /* HERO */
+  #inicio { position: relative; height: 100vh; min-height: 600px; display: flex; align-items: flex-end; justify-content: center; overflow: hidden; }
+  .hero-bg {
+    position: absolute; inset: 0;
+    background: linear-gradient(to bottom, rgba(29,45,15,0.3) 0%, rgba(29,45,15,0.6) 60%, rgba(29,45,15,1) 100%),
+      url('https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=1600&q=80') center/cover no-repeat;
+  }
+  .hero-content { position: relative; z-index: 2; text-align: center; padding: 0 24px 80px; }
+  .hero-content h1 { font-family: 'Montserrat',sans-serif; font-size: clamp(3.5rem,10vw,8rem); font-weight: 900; color: #fff; line-height: 1; letter-spacing: -2px; text-shadow: 0 4px 24px rgba(0,0,0,0.5); }
+  .hero-content h1 span { color: var(--amarelo); }
+  .hero-sub { font-family: 'Montserrat',sans-serif; font-size: clamp(0.7rem,1.5vw,0.95rem); letter-spacing: 4px; text-transform: uppercase; color: rgba(255,255,255,0.85); margin-top: 12px; }
+
+  /* SECTIONS */
+  section { padding: 80px 48px; }
+  .section-inner { max-width: 1100px; margin: 0 auto; }
+  .tag { display: inline-block; font-family: 'Montserrat',sans-serif; font-size: 0.7rem; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--amarelo); border: 1.5px solid var(--amarelo); padding: 4px 12px; border-radius: 3px; margin-bottom: 20px; }
+
+  /* SOBRE */
+  #sobre { background: var(--verde-escuro); }
+  .sobre-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; }
+  .sobre-img { width: 100%; aspect-ratio: 4/3; object-fit: cover; border-radius: 8px; filter: brightness(0.85) saturate(1.2); }
+  .sobre-text h2 { font-family: 'Montserrat',sans-serif; font-size: clamp(1.8rem,3vw,2.8rem); font-weight: 900; color: var(--amarelo); line-height: 1.15; margin-bottom: 20px; }
+  .sobre-text p { font-size: 1rem; line-height: 1.8; color: var(--texto); text-align: justify; }
+
+  /* REGIMES */
+  #regimes { background: var(--verde-medio); }
+  .regimes-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0; align-items: stretch; border-radius: 10px; overflow: hidden; box-shadow: 0 20px 60px rgba(0,0,0,0.4); }
+  .regimes-img-col { position: relative; min-height: 480px; }
+  .regimes-img-col img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .regimes-title-box { position: absolute; bottom: 0; left: 0; right: 0; background: rgba(29,45,15,0.88); padding: 28px; }
+  .regimes-title-box h2 { font-family: 'Montserrat',sans-serif; font-size: clamp(1.5rem,3vw,2.2rem); font-weight: 900; color: var(--amarelo); line-height: 1.1; text-transform: uppercase; }
+  .regimes-text-col { background: var(--verde-card); padding: 40px 36px; display: flex; flex-direction: column; gap: 24px; justify-content: center; }
+  .regimes-text-col p { font-size: 0.95rem; line-height: 1.8; color: var(--texto); text-align: justify; }
+
+  /* CONSEQUENCIAS */
+  #consequencias { background: var(--verde-escuro); }
+  .conseq-header { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center; margin-bottom: 56px; }
+  .conseq-header h2 { font-family: 'Montserrat',sans-serif; font-size: clamp(2.5rem,5vw,4rem); font-weight: 900; color: var(--amarelo); text-transform: uppercase; line-height: 1; }
+  .conseq-img { width: 100%; aspect-ratio: 16/7; object-fit: cover; border-radius: 8px; filter: brightness(0.75) saturate(1.2); }
+  .conseq-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+  .c-card { background: var(--verde-card); border-radius: 8px; padding: 28px; border-left: 3px solid var(--amarelo); }
+  .c-card h3 { font-family: 'Montserrat',sans-serif; font-size: 0.82rem; font-weight: 700; color: var(--amarelo); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px; }
+  .c-card p { font-size: 0.92rem; line-height: 1.7; color: var(--texto); }
+
+  /* FERRAMENTAS */
+  #ferramentas { background: var(--verde-medio); }
+  .ferr-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0; border-radius: 10px; overflow: hidden; box-shadow: 0 20px 60px rgba(0,0,0,0.4); }
+  .ferr-img-col img { width: 100%; height: 100%; min-height: 420px; object-fit: cover; display: block; filter: brightness(0.8); }
+  .ferr-text-col { background: var(--verde-card); padding: 52px 44px; display: flex; flex-direction: column; justify-content: center; }
+  .ferr-text-col h2 { font-family: 'Montserrat',sans-serif; font-size: clamp(1.6rem,2.5vw,2.4rem); font-weight: 900; color: var(--amarelo); text-transform: uppercase; line-height: 1.1; margin-bottom: 24px; }
+  .ferr-text-col p { font-size: 0.96rem; line-height: 1.85; color: var(--texto); text-align: justify; }
+  .ferr-btn { margin-top: 32px; display: inline-block; background: var(--amarelo); color: var(--texto-escuro); font-family: 'Montserrat',sans-serif; font-weight: 700; font-size: 0.85rem; letter-spacing: 1px; text-transform: uppercase; padding: 14px 32px; border-radius: 6px; text-decoration: none; cursor: pointer; border: none; transition: background 0.2s; }
+  .ferr-btn:hover { background: var(--amarelo-hover); }
+
+  /* ═══════════════════════════════════
+     PAINEL DE MONITORAMENTO
+  ═══════════════════════════════════ */
+  #painel { display: none; min-height: 100vh; background: #1e3010; padding-top: 64px; }
+
+  /* smoke overlay */
+  #smoke-overlay {
+    display: none; position: fixed; inset: 0; z-index: 9999;
+    background: rgba(180,60,0,0.15);
+    animation: smokeFlash 1s ease-in-out infinite;
+    pointer-events: none;
+  }
+  @keyframes smokeFlash { 0%,100% { opacity: 0.2; } 50% { opacity: 0.7; } }
+
+  #smoke-banner {
+    display: none; position: fixed; top: 64px; left: 0; right: 0; z-index: 9998;
+    background: linear-gradient(90deg, #b22222, #ff4500, #b22222);
+    background-size: 200% 100%;
+    animation: bannerSlide 1.5s linear infinite;
+    padding: 14px 24px;
+    text-align: center;
+    font-family: 'Montserrat',sans-serif;
+    font-weight: 900;
+    font-size: 1rem;
+    letter-spacing: 2px;
+    color: #fff;
+    text-transform: uppercase;
+    box-shadow: 0 4px 20px rgba(255,69,0,0.6);
+  }
+  @keyframes bannerSlide { 0% { background-position: 0% 0%; } 100% { background-position: 200% 0%; } }
+
+  .painel-header { background: #253d15; padding: 28px 48px; border-bottom: 2px solid rgba(232,200,50,0.2); }
+  .painel-header h1 { font-family: 'Montserrat',sans-serif; font-size: 1.5rem; font-weight: 900; color: var(--amarelo); }
+  .painel-header p { font-size: 0.85rem; color: rgba(255,255,255,0.5); margin-top: 4px; }
+
+  .painel-body { max-width: 1280px; margin: 0 auto; padding: 32px 40px; display: grid; grid-template-columns: 300px 1fr; gap: 28px; align-items: start; }
+
+  /* SIDEBAR */
+  .sidebar { display: flex; flex-direction: column; gap: 16px; }
+  .sidebar-box { background: #2e4a1a; border-radius: 10px; padding: 22px; border: 1px solid rgba(232,200,50,0.1); }
+  .sidebar-box h3 { font-family: 'Montserrat',sans-serif; font-size: 0.72rem; font-weight: 700; color: var(--amarelo); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 14px; }
+
+  .form-group { margin-bottom: 12px; }
+  .form-group label { display: block; font-size: 0.72rem; color: rgba(255,255,255,0.5); margin-bottom: 4px; font-family: 'Montserrat',sans-serif; text-transform: uppercase; letter-spacing: 0.5px; }
+  .form-group input, .form-group select {
+    width: 100%; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 6px; padding: 9px 12px; font-size: 0.86rem; color: #fff;
+    font-family: 'Open Sans',sans-serif; outline: none; transition: border 0.2s;
+  }
+  .form-group input:focus, .form-group select:focus { border-color: var(--amarelo); }
+  .form-group select option { background: #1e3010; }
+
+  .btn-full { width: 100%; background: var(--amarelo); color: var(--texto-escuro); font-family: 'Montserrat',sans-serif; font-weight: 700; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; padding: 11px; border: none; border-radius: 6px; cursor: pointer; transition: background 0.2s; margin-top: 4px; }
+  .btn-full:hover { background: var(--amarelo-hover); }
+
+  .station-list { display: flex; flex-direction: column; gap: 7px; }
+  .station-item { display: flex; align-items: center; justify-content: space-between; padding: 10px 12px; background: rgba(255,255,255,0.04); border-radius: 6px; cursor: pointer; border: 1px solid transparent; transition: all 0.2s; font-size: 0.86rem; }
+  .station-item:hover { background: rgba(232,200,50,0.07); border-color: rgba(232,200,50,0.25); }
+  .station-item.active { border-color: var(--amarelo); background: rgba(232,200,50,0.1); }
+  .station-name { font-weight: 600; color: #fff; }
+  .status-dot { width: 9px; height: 9px; border-radius: 50%; flex-shrink: 0; }
+  .dot-ok { background: #4caf50; box-shadow: 0 0 6px #4caf50; }
+  .dot-alert { background: #ff9800; box-shadow: 0 0 6px #ff9800; }
+  .dot-danger { background: #f44336; box-shadow: 0 0 6px #f44336; }
+  .no-station { font-size: 0.8rem; color: rgba(255,255,255,0.35); text-align: center; padding: 14px 0; line-height: 1.6; }
+
+  /* MAIN PANEL */
+  .main-panel { display: flex; flex-direction: column; gap: 22px; }
+
+  /* summary stats */
+  .stats-row { display: grid; grid-template-columns: repeat(4,1fr); gap: 14px; }
+  .stat-card { background: #2e4a1a; border-radius: 10px; padding: 18px; text-align: center; border: 1px solid rgba(232,200,50,0.08); }
+  .stat-card .stat-val { font-family: 'Montserrat',sans-serif; font-size: 1.8rem; font-weight: 900; color: var(--amarelo); line-height: 1; }
+  .stat-card .stat-label { font-size: 0.68rem; color: rgba(255,255,255,0.4); text-transform: uppercase; letter-spacing: 1.5px; margin-top: 6px; font-family: 'Montserrat',sans-serif; }
+  .stat-card.ok .stat-val { color: #4caf50; }
+  .stat-card.warn .stat-val { color: #ff9800; }
+  .stat-card.fire .stat-val { color: #f44336; }
+
+  /* LIVE SENSORS */
+  .sensors-card { background: #2e4a1a; border-radius: 12px; padding: 28px; border: 1px solid rgba(232,200,50,0.12); }
+  .sensors-card .card-title { font-family: 'Montserrat',sans-serif; font-size: 0.78rem; font-weight: 700; color: var(--amarelo); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 22px; display: flex; align-items: center; gap: 10px; }
+  .live-dot { width: 8px; height: 8px; border-radius: 50%; background: #4caf50; box-shadow: 0 0 6px #4caf50; animation: pulseDot 1.4s ease-in-out infinite; }
+  @keyframes pulseDot { 0%,100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.4; transform: scale(0.7); } }
+
+  .sensors-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 18px; }
+
+  .sensor-box {
+    background: rgba(0,0,0,0.2); border-radius: 10px; padding: 22px 16px;
+    text-align: center; border: 1px solid rgba(255,255,255,0.07);
+    transition: border-color 0.4s;
+    position: relative; overflow: hidden;
+  }
+  .sensor-box.warn { border-color: rgba(255,152,0,0.5); }
+  .sensor-box.danger { border-color: rgba(244,67,54,0.7); animation: dangerPulse 1s ease-in-out infinite; }
+  @keyframes dangerPulse { 0%,100% { box-shadow: 0 0 0 rgba(244,67,54,0); } 50% { box-shadow: 0 0 18px rgba(244,67,54,0.5); } }
+
+  .sensor-icon { font-size: 2rem; margin-bottom: 10px; display: block; }
+  .sensor-label { font-family: 'Montserrat',sans-serif; font-size: 0.68rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,0.4); margin-bottom: 8px; }
+  .sensor-value { font-family: 'Montserrat',sans-serif; font-size: 2.4rem; font-weight: 900; color: #fff; line-height: 1; }
+  .sensor-unit { font-size: 0.9rem; color: rgba(255,255,255,0.5); margin-left: 2px; }
+  .sensor-status { font-size: 0.7rem; font-family: 'Montserrat',sans-serif; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-top: 8px; padding: 3px 10px; border-radius: 20px; display: inline-block; }
+  .s-ok { background: rgba(76,175,80,0.15); color: #4caf50; }
+  .s-warn { background: rgba(255,152,0,0.15); color: #ff9800; }
+  .s-danger { background: rgba(244,67,54,0.2); color: #f44336; }
+
+  /* gauge bar */
+  .gauge-track { background: rgba(255,255,255,0.07); border-radius: 4px; height: 5px; margin-top: 12px; overflow: hidden; }
+  .gauge-fill { height: 100%; border-radius: 4px; transition: width 0.8s ease, background 0.5s; }
+
+  /* SMOKE SENSOR SPECIAL */
+  .smoke-box { grid-column: span 1; }
+  .smoke-reading { display: flex; align-items: center; justify-content: center; gap: 8px; margin-top: 4px; }
+  .smoke-val-text { font-family: 'Montserrat',sans-serif; font-size: 1.3rem; font-weight: 900; }
+
+  /* alerts */
+  .alerts-card { background: #2e4a1a; border-radius: 12px; padding: 24px; border: 1px solid rgba(232,200,50,0.1); }
+  .alerts-card .card-title { font-family: 'Montserrat',sans-serif; font-size: 0.78rem; font-weight: 700; color: var(--amarelo); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 16px; }
+  .alert-item { display: flex; align-items: flex-start; gap: 12px; padding: 11px 14px; border-radius: 7px; font-size: 0.84rem; margin-bottom: 8px; }
+  .alert-item:last-child { margin-bottom: 0; }
+  .alert-ok { background: rgba(76,175,80,0.1); border-left: 3px solid #4caf50; color: #81c784; }
+  .alert-warn { background: rgba(255,152,0,0.1); border-left: 3px solid #ff9800; color: #ffb74d; }
+  .alert-danger { background: rgba(244,67,54,0.12); border-left: 3px solid #f44336; color: #ef9a9a; }
+  .alert-fire { background: rgba(180,0,0,0.2); border-left: 3px solid #ff1744; color: #ff6b6b; animation: dangerPulse 1s ease-in-out infinite; }
+  .alert-icon { flex-shrink: 0; font-size: 1.1rem; }
+  .alert-body p { line-height: 1.5; }
+  .alert-time { font-size: 0.7rem; opacity: 0.55; margin-top: 2px; }
+
+  /* HISTORY */
+  .history-card { background: #2e4a1a; border-radius: 12px; padding: 24px; border: 1px solid rgba(232,200,50,0.1); }
+  .history-card .card-title { font-family: 'Montserrat',sans-serif; font-size: 0.78rem; font-weight: 700; color: var(--amarelo); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 16px; }
+  .history-table { width: 100%; border-collapse: collapse; font-size: 0.83rem; }
+  .history-table th { font-family: 'Montserrat',sans-serif; font-size: 0.67rem; letter-spacing: 1.5px; text-transform: uppercase; color: rgba(255,255,255,0.4); text-align: left; padding: 7px 12px; border-bottom: 1px solid rgba(255,255,255,0.07); }
+  .history-table td { padding: 9px 12px; border-bottom: 1px solid rgba(255,255,255,0.04); color: var(--texto); }
+  .history-table tr:last-child td { border-bottom: none; }
+  .history-table tr:hover td { background: rgba(255,255,255,0.02); }
+  .badge { display: inline-block; font-size: 0.67rem; font-family: 'Montserrat',sans-serif; font-weight: 700; padding: 2px 8px; border-radius: 4px; text-transform: uppercase; }
+  .badge-ok { background: rgba(76,175,80,0.15); color: #4caf50; }
+  .badge-alert { background: rgba(255,152,0,0.15); color: #ff9800; }
+  .badge-danger { background: rgba(244,67,54,0.15); color: #f44336; }
+  .badge-fire { background: rgba(180,0,0,0.25); color: #ff1744; }
+
+  /* empty */
+  .empty-state { text-align: center; padding: 50px 20px; color: rgba(255,255,255,0.25); }
+  .empty-state .empty-icon { font-size: 2.8rem; margin-bottom: 14px; }
+  .empty-state p { font-size: 0.88rem; line-height: 1.6; }
+
+  /* controls row */
+  .controls-row { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
+  .btn-sim { background: rgba(232,200,50,0.12); color: var(--amarelo); border: 1.5px solid var(--amarelo); font-family: 'Montserrat',sans-serif; font-weight: 700; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; padding: 9px 18px; border-radius: 6px; cursor: pointer; transition: background 0.2s; }
+  .btn-sim:hover { background: rgba(232,200,50,0.2); }
+  .btn-sim.active { background: var(--amarelo); color: var(--texto-escuro); }
+  .btn-fire { border-color: #f44336; color: #f44336; background: rgba(244,67,54,0.08); }
+  .btn-fire:hover { background: rgba(244,67,54,0.2); }
+  .btn-fire.active { background: #f44336; color: #fff; }
+  .scenario-label { font-size: 0.72rem; color: rgba(255,255,255,0.35); font-family: 'Montserrat',sans-serif; letter-spacing: 1px; text-transform: uppercase; }
+
+  footer { background: rgba(0,0,0,0.35); text-align: center; padding: 22px; font-size: 0.75rem; color: rgba(255,255,255,0.25); font-family: 'Montserrat',sans-serif; letter-spacing: 1px; }
+
+  @media (max-width: 900px) {
+    nav { padding: 0 16px; }
+    section { padding: 60px 20px; }
+    .sobre-grid,.regimes-grid,.ferr-grid,.conseq-header,.conseq-cards { grid-template-columns: 1fr; }
+    .painel-body { grid-template-columns: 1fr; padding: 20px 16px; }
+    .stats-row { grid-template-columns: repeat(2,1fr); }
+    .sensors-grid { grid-template-columns: 1fr 1fr; }
+    .nav-menu a { font-size: 0.68rem; padding: 5px 7px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- SMOKE OVERLAY -->
+<div id="smoke-overlay"></div>
+<div id="smoke-banner">🔥 ALERTA CRÍTICO — FUMAÇA DETECTADA NO CAMPO! ACIONE OS BOMBEIROS! 🔥</div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">AgroSmart</div>
+  <ul class="nav-menu">
+    <li><a href="#" onclick="showPage('home');return false;">Início</a></li>
+    <li><a href="#sobre" onclick="showPage('home')">Sobre</a></li>
+    <li><a href="#regimes" onclick="showPage('home')">Regulamentação</a></li>
+    <li><a href="#consequencias" onclick="showPage('home')">Desafios</a></li>
+    <li><a href="#ferramentas" onclick="showPage('home')">Cooperação</a></li>
+    <li><a href="#" class="nav-cta" onclick="showPage('painel');return false;">📡 Monitoramento</a></li>
+  </ul>
+</nav>
+
+<!-- ════════════════════════════════
+     PÁGINA INICIAL
+════════════════════════════════ -->
+<div id="site-home">
+
+  <section id="inicio" style="padding:0;">
+    <div class="hero-bg"></div>
+    <div class="hero-content">
+      <h1>Agro<span>Smart</span></h1>
+      <p class="hero-sub">O Aplicativo que Leva a Tecnologia ao Pequeno Agricultor</p>
+    </div>
+  </section>
+
+  <section id="sobre">
+    <div class="section-inner">
+      <div class="sobre-grid">
+        <img class="sobre-img" src="https://images.unsplash.com/photo-1574943320219-553eb213f72d?w=800&q=80" alt="Plantação verde">
+        <div class="sobre-text">
+          <span class="tag">Legislação</span>
+          <h2>As Leis Ambientais na Agricultura</h2>
+          <p>A regulamentação ambiental atua como o manual de regras para o uso sustentável dos recursos naturais, enquanto a agricultura é a atividade prática que depende diretamente desses recursos. A ponte entre as duas áreas acontece na gestão de precisão: a lei impõe limites para proteger o ecossistema (como cotas de uso de água, proibição de desmatamento e controle de poluição do solo), e a agricultura utiliza a tecnologia para monitorar a terra (umidade, temperatura e nutrientes) e garantir que a produção aumente sem desrespeitar esses limites legais. Assim, a conformidade com a lei deixa de ser uma obrigação burocrática e se transforma em eficiência produtiva.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="regimes">
+    <div class="section-inner">
+      <div class="regimes-grid">
+        <div class="regimes-img-col">
+          <img src="https://images.unsplash.com/photo-1592982537447-7440770cbfc9?w=800&q=80" alt="Vista aérea de campos">
+          <div class="regimes-title-box">
+            <h2>Introdução a<br>Regimes<br>Ambientais</h2>
+          </div>
+        </div>
+        <div class="regimes-text-col">
+          <p>As regulamentações ambientais são políticas, incentivos e práticas concebidas para manter a sustentabilidade ambiental. Representam desafios para os agricultores e uma oportunidade para melhorar as suas práticas. Ao contrário das grandes empresas agropecuárias, as explorações agrícolas familiares dependem direta e imediatamente da saúde dos solos, da água e do clima local, sendo a sustentabilidade, portanto, um fator determinante para o crescimento econômico.</p>
+          <p>Por um lado, as regulamentações impostas pelos governos, como a proteção de áreas permanentes (APPs) e a manutenção de reservas legais, apresentam desafios devido à burocracia, aos recursos limitados e ao apoio técnico escasso. O cumprimento destas regulamentações abre portas a diferentes mercados, como o de produtos biológicos, e proporciona acesso a incentivos financeiros reais, como os pagamentos por serviços ecossistêmicos (PSE).</p>
+          <p>Para que esta transição seja justa, o Estado deve fornecer assistência técnica gratuita, simplificar o processo de regularização e facilitar o acesso ao crédito verde.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="consequencias">
+    <div class="section-inner">
+      <div class="conseq-header">
+        <h2>Consequências<br>Negativas</h2>
+        <img class="conseq-img" src="https://images.unsplash.com/photo-1530836369250-ef72a3f5cda8?w=800&q=80" alt="Campo ao entardecer">
+      </div>
+      <div class="conseq-cards">
+        <div class="c-card"><h3>Alto Custo e Burocracia</h3><p>Exigência de documentos complexos e consultorias caras para regularizar a terra.</p></div>
+        <div class="c-card"><h3>Bloqueio de Crédito</h3><p>Impedimento de conseguir financiamento bancário caso haja qualquer pendência ambiental.</p></div>
+        <div class="c-card"><h3>Perda da Área Produzida</h3><p>Obrigação legal de ceder espaço da fazenda para preservação de matas e nascentes.</p></div>
+        <div class="c-card"><h3>Falta de Ferramentas de Mediação</h3><p>A lei exige controle de recursos (água e solo), mas o produtor não tem a tecnologia para medir isso.</p></div>
+        <div class="c-card"><h3>Fiscalização Punitiva</h3><p>Foco do governo em aplicar multas e bloqueios imediatos em vez de orientar o produtor.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="ferramentas">
+    <div class="section-inner">
+      <div class="ferr-grid">
+        <div class="ferr-img-col">
+          <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80" alt="Corredor de milho">
+        </div>
+        <div class="ferr-text-col">
+          <span class="tag">Nossa Solução</span>
+          <h2>Ferramentas de<br>Cooperação</h2>
+          <p>Para solucionar esses desafios e transformar a burocracia em produtividade, o nosso grupo desenvolveu uma plataforma voltada ao pequeno produtor. A ferramenta traduz dados complexos do campo em informações simples sobre o manejo diário como umidade, temperatura e nutrientes do solo. Com isso, entregamos ao agricultor o controle e as ferramentas exatas que ele precisa para otimizar seus recursos, evitar desperdícios e, acima de tudo, produzir em total conformidade com a legislação ambiental, sem medo de multas e com segurança jurídica.</p>
+          <button class="ferr-btn" onclick="showPage('painel')">Acessar Painel de Monitoramento →</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>&copy; 2026 AgroSmart — Tecnologia para o pequeno agricultor</footer>
+</div>
+
+<!-- ════════════════════════════════
+     PAINEL DE MONITORAMENTO
+════════════════════════════════ -->
+<div id="painel">
+
+  <div class="painel-header">
+    <h1>📡 Painel de Monitoramento em Tempo Real</h1>
+    <p>Sensores ativos — leituras atualizadas automaticamente a cada 4 segundos</p>
+  </div>
+
+  <div class="painel-body">
+
+    <!-- SIDEBAR -->
+    <div class="sidebar">
+
+      <div class="sidebar-box">
+        <h3>Resumo Geral</h3>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+          <div style="text-align:center;background:rgba(0,0,0,0.2);border-radius:7px;padding:12px;">
+            <div style="font-family:Montserrat,sans-serif;font-weight:900;font-size:1.5rem;color:#fff;" id="total-count">0</div>
+            <div style="font-size:0.65rem;color:rgba(255,255,255,0.4);text-transform:uppercase;letter-spacing:1px;margin-top:4px;font-family:Montserrat,sans-serif;">Estações</div>
+          </div>
+          <div style="text-align:center;background:rgba(0,0,0,0.2);border-radius:7px;padding:12px;">
+            <div style="font-family:Montserrat,sans-serif;font-weight:900;font-size:1.5rem;color:#4caf50;" id="ok-count">0</div>
+            <div style="font-size:0.65rem;color:rgba(255,255,255,0.4);text-transform:uppercase;letter-spacing:1px;margin-top:4px;font-family:Montserrat,sans-serif;">OK</div>
+          </div>
+          <div style="text-align:center;background:rgba(0,0,0,0.2);border-radius:7px;padding:12px;">
+            <div style="font-family:Montserrat,sans-serif;font-weight:900;font-size:1.5rem;color:#ff9800;" id="warn-count">0</div>
+            <div style="font-size:0.65rem;color:rgba(255,255,255,0.4);text-transform:uppercase;letter-spacing:1px;margin-top:4px;font-family:Montserrat,sans-serif;">Atenção</div>
+          </div>
+          <div style="text-align:center;background:rgba(0,0,0,0.2);border-radius:7px;padding:12px;">
+            <div style="font-family:Montserrat,sans-serif;font-weight:900;font-size:1.5rem;color:#f44336;" id="danger-count">0</div>
+            <div style="font-size:0.65rem;color:rgba(255,255,255,0.4);text-transform:uppercase;letter-spacing:1px;margin-top:4px;font-family:Montserrat,sans-serif;">Alerta</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="sidebar-box">
+        <h3>Cadastrar Estação</h3>
+        <div class="form-group">
+          <label>Nome da Estação</label>
+          <input type="text" id="est-name" placeholder="Ex: Talhão Norte">
+        </div>
+        <div class="form-group">
+          <label>Tipo de Cultura</label>
+          <select id="est-cultura">
+            <option value="">Selecione…</option>
+            <option>Soja</option><option>Milho</option><option>Trigo</option>
+            <option>Arroz</option><option>Café</option><option>Cana-de-açúcar</option><option>Outro</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Localização</label>
+          <input type="text" id="est-local" placeholder="Ex: Gleba A, Setor 2">
+        </div>
+        <button class="btn-full" onclick="addStation()">+ Adicionar Estação</button>
+      </div>
+
+      <div class="sidebar-box">
+        <h3>Estações (<span id="station-count">0</span>)</h3>
+        <div class="station-list" id="station-list">
+          <p class="no-station">Nenhuma estação ainda.<br>Cadastre acima para começar.</p>
+        </div>
+      </div>
+
+    </div><!-- /sidebar -->
+
+    <!-- MAIN PANEL -->
+    <div class="main-panel">
+
+      <!-- top stats -->
+      <div class="stats-row">
+        <div class="stat-card">
+          <div class="stat-val" id="stat-temp">—</div>
+          <div class="stat-label">Temperatura atual</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-val" id="stat-umid">—</div>
+          <div class="stat-label">Umidade atual</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-val" id="stat-smoke">—</div>
+          <div class="stat-label">Partículas fumaça</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-val" id="stat-time">—</div>
+          <div class="stat-label">Última leitura</div>
+        </div>
+      </div>
+
+      <!-- empty state (no station) -->
+      <div id="no-station-msg" class="sensors-card">
+        <div class="empty-state">
+          <div class="empty-icon">🌱</div>
+          <p>Cadastre uma estação na barra lateral<br>para ativar os sensores ao vivo.</p>
+        </div>
+      </div>
+
+      <!-- LIVE SENSORS (hidden until station exists) -->
+      <div id="live-sensors" style="display:none;">
+
+        <!-- scenario controls -->
+        <div class="sensors-card" style="padding:18px 24px;">
+          <div class="card-title" style="margin-bottom:12px;">🎛️ Simular Cenário de Campo</div>
+          <div class="controls-row">
+            <span class="scenario-label">Cenário:</span>
+            <button class="btn-sim active" id="btn-normal" onclick="setScenario('normal')">☀️ Dia Normal</button>
+            <button class="btn-sim" id="btn-seco" onclick="setScenario('seco')">🌵 Seca Intensa</button>
+            <button class="btn-sim" id="btn-chuva" onclick="setScenario('chuva')">🌧️ Pós-Chuva</button>
+            <button class="btn-sim btn-fire" id="btn-fogo" onclick="setScenario('fogo')">🔥 Incêndio</button>
+          </div>
+        </div>
+
+        <!-- sensors -->
+        <div class="sensors-card">
+          <div class="card-title">
+            <div class="live-dot"></div>
+            Sensores em Tempo Real — <span id="active-station-name">—</span>
+          </div>
+          <div class="sensors-grid">
+
+            <!-- TEMPERATURA -->
+            <div class="sensor-box" id="box-temp">
+              <span class="sensor-icon">🌡️</span>
+              <div class="sensor-label">Temperatura do Ar</div>
+              <div class="sensor-value"><span id="val-temp">—</span><span class="sensor-unit">°C</span></div>
+              <div class="gauge-track"><div class="gauge-fill" id="gauge-temp" style="width:0%;background:#4caf50;"></div></div>
+              <div class="sensor-status s-ok" id="status-temp">Aguardando…</div>
+            </div>
+
+            <!-- UMIDADE -->
+            <div class="sensor-box" id="box-umid">
+              <span class="sensor-icon">💧</span>
+              <div class="sensor-label">Umidade do Solo</div>
+              <div class="sensor-value"><span id="val-umid">—</span><span class="sensor-unit">%</span></div>
+              <div class="gauge-track"><div class="gauge-fill" id="gauge-umid" style="width:0%;background:#2196f3;"></div></div>
+              <div class="sensor-status s-ok" id="status-umid">Aguardando…</div>
+            </div>
+
+            <!-- FUMAÇA -->
+            <div class="sensor-box" id="box-smoke">
+              <span class="sensor-icon">🌫️</span>
+              <div class="sensor-label">Detector de Fumaça</div>
+              <div class="sensor-value"><span id="val-smoke">—</span><span class="sensor-unit">ppm</span></div>
+              <div class="gauge-track"><div class="gauge-fill" id="gauge-smoke" style="width:0%;background:#4caf50;"></div></div>
+              <div class="sensor-status s-ok" id="status-smoke">Aguardando…</div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- alerts -->
+        <div class="alerts-card">
+          <div class="card-title">⚡ Alertas e Recomendações</div>
+          <div id="alerts-list">
+            <div class="alert-item alert-ok">
+              <div class="alert-icon">✅</div>
+              <div class="alert-body"><p>Sistema iniciado. Aguardando leituras dos sensores.</p></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- history -->
+        <div class="history-card">
+          <div class="card-title">📊 Histórico de Leituras</div>
+          <table class="history-table">
+            <thead>
+              <tr>
+                <th>Horário</th>
+                <th>Temp. (°C)</th>
+                <th>Umidade (%)</th>
+                <th>Fumaça (ppm)</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody id="history-tbody">
+              <tr><td colspan="5" style="text-align:center;color:rgba(255,255,255,0.25);padding:20px;">Sem leituras ainda.</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+      </div><!-- /live-sensors -->
+
+    </div><!-- /main-panel -->
+  </div><!-- /painel-body -->
+
+  <footer>&copy; 2026 AgroSmart — Tecnologia para o pequeno agricultor</footer>
+</div>
+
+<script>
+/* ══════════════════════════════════════
+   STATE
+══════════════════════════════════════ */
+let stations = [];
+let selectedId = null;
+let sensorInterval = null;
+let scenario = 'normal';
+let history = [];
+let smokeAlert = false;
+
+/* ── PAGE TOGGLE ── */
+function showPage(page) {
+  const home = document.getElementById('site-home');
+  const painel = document.getElementById('painel');
+  if (page === 'painel') {
+    home.style.display = 'none';
+    painel.style.display = 'block';
+    window.scrollTo(0,0);
+    updateSummary();
+  } else {
+    painel.style.display = 'none';
+    home.style.display = 'block';
+  }
+}
+
+/* ── SCENARIO SETTINGS ── */
+const SCENARIOS = {
+  normal: {
+    tempBase: 27, tempRange: 4,       // 25–31°C — dia típico de verão no Paraná
+    umidBase: 62, umidRange: 10,      // 52–72% — solo adequado
+    smokeBase: 18, smokeRange: 8,     // 10–26 ppm — ar limpo
+  },
+  seco: {
+    tempBase: 38, tempRange: 5,       // 33–43°C — onda de calor
+    umidBase: 22, umidRange: 8,       // 14–30% — seca crítica
+    smokeBase: 35, smokeRange: 12,    // 23–47 ppm — partículas no ar
+  },
+  chuva: {
+    tempBase: 19, tempRange: 3,       // 16–22°C — frente fria
+    umidBase: 88, umidRange: 8,       // 80–96% — saturação
+    smokeBase: 8, smokeRange: 4,      // 4–12 ppm — ar limpo
+  },
+  fogo: {
+    tempBase: 52, tempRange: 10,      // 42–62°C — incêndio próximo
+    umidBase: 10, umidRange: 6,       // 4–16% — solo ressecado
+    smokeBase: 380, smokeRange: 120,  // 260–500 ppm — fumaça densa
+  }
+};
+
+function setScenario(s) {
+  scenario = s;
+  document.querySelectorAll('.btn-sim').forEach(b => b.classList.remove('active'));
+  document.getElementById('btn-' + s).classList.add('active');
+}
+
+/* ── ADD STATION ── */
+function addStation() {
+  const name = document.getElementById('est-name').value.trim();
+  const cultura = document.getElementById('est-cultura').value;
+  const local = document.getElementById('est-local').value.trim();
+  if (!name) { alert('Insira o nome da estação.'); return; }
+
+  const station = {
+    id: Date.now(), name,
+    cultura: cultura || 'Não especificado',
+    local: local || '—',
+    status: 'ok'
+  };
+
+  stations.push(station);
+  document.getElementById('est-name').value = '';
+  document.getElementById('est-cultura').value = '';
+  document.getElementById('est-local').value = '';
+
+  renderStationList();
+  updateSummary();
+  selectStation(station.id);
+}
+
+/* ── SELECT STATION ── */
+function selectStation(id) {
+  selectedId = id;
+  history = [];
+  document.querySelectorAll('.station-item').forEach(el => el.classList.remove('active'));
+  const el = document.querySelector(`[data-id="${id}"]`);
+  if (el) el.classList.add('active');
+
+  const station = stations.find(s => s.id === id);
+  if (station) {
+    document.getElementById('active-station-name').textContent = `${station.name} — ${station.cultura}`;
+  }
+
+  document.getElementById('no-station-msg').style.display = 'none';
+  document.getElementById('live-sensors').style.display = 'block';
+
+  // reset history
+  document.getElementById('history-tbody').innerHTML =
+    '<tr><td colspan="5" style="text-align:center;color:rgba(255,255,255,0.25);padding:20px;">Aguardando leituras…</td></tr>';
+
+  // start sensor loop
+  if (sensorInterval) clearInterval(sensorInterval);
+  runSensors(); // immediate first read
+  sensorInterval = setInterval(runSensors, 4000);
+}
+
+/* ── RENDER STATION LIST ── */
+function renderStationList() {
+  const list = document.getElementById('station-list');
+  document.getElementById('station-count').textContent = stations.length;
+  if (!stations.length) {
+    list.innerHTML = '<p class="no-station">Nenhuma estação ainda.<br>Cadastre acima para começar.</p>';
+    return;
+  }
+  list.innerHTML = stations.map(s => {
+    const dotClass = s.status === 'danger' ? 'dot-danger' : s.status === 'alert' ? 'dot-alert' : 'dot-ok';
+    return `
+      <div class="station-item${selectedId === s.id ? ' active' : ''}" data-id="${s.id}" onclick="selectStation(${s.id})">
+        <div>
+          <div class="station-name">${s.name}</div>
+          <div style="font-size:0.7rem;color:rgba(255,255,255,0.4);margin-top:2px;">${s.cultura}</div>
+        </div>
+        <div class="status-dot ${dotClass}"></div>
+      </div>`;
+  }).join('');
+}
+
+/* ── SENSOR SIMULATION ── */
+function rand(base, range) {
+  return +(base + (Math.random() - 0.5) * range * 2).toFixed(1);
+}
+
+function runSensors() {
+  if (!selectedId) return;
+  const cfg = SCENARIOS[scenario];
+
+  const temp  = rand(cfg.tempBase, cfg.tempRange / 2);
+  const umid  = Math.min(100, Math.max(0, rand(cfg.umidBase, cfg.umidRange / 2)));
+  const smoke = Math.max(0, rand(cfg.smokeBase, cfg.smokeRange / 2));
+
+  const now = new Date();
+  const timeStr = now.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+
+  // ── evaluate status ──
+  let overallStatus = 'ok';
+  const alerts = [];
+
+  // TEMPERATURE
+  let tempStatus = 'ok', tempClass = 's-ok', tempLabel = 'Normal';
+  if (temp > 40) {
+    tempStatus = 'danger'; tempClass = 's-danger'; tempLabel = 'Crítico';
+    overallStatus = 'danger';
+    alerts.push({ type: 'danger', icon: '🔥', msg: `Temperatura crítica: ${temp}°C — risco severo à cultura. Acione irrigação de emergência.` });
+  } else if (temp > 33) {
+    tempStatus = 'alert'; tempClass = 's-warn'; tempLabel = 'Atenção';
+    if (overallStatus !== 'danger') overallStatus = 'alert';
+    alerts.push({ type: 'warn', icon: '⚠️', msg: `Temperatura elevada: ${temp}°C — monitorar hidratação das plantas.` });
+  } else if (temp < 10) {
+    tempStatus = 'alert'; tempClass = 's-warn'; tempLabel = 'Geada';
+    if (overallStatus !== 'danger') overallStatus = 'alert';
+    alerts.push({ type: 'warn', icon: '❄️', msg: `Temperatura baixa: ${temp}°C — risco de geada. Proteger mudas.` });
+  } else {
+    alerts.push({ type: 'ok', icon: '✅', msg: `Temperatura normal: ${temp}°C — condições favoráveis.` });
+  }
+
+  // HUMIDITY
+  let umidStatus = 'ok', umidClass = 's-ok', umidLabel = 'Normal';
+  if (umid < 25) {
+    umidStatus = 'danger'; umidClass = 's-danger'; umidLabel = 'Seco Crítico';
+    overallStatus = 'danger';
+    alerts.push({ type: 'danger', icon: '🚨', msg: `Umidade do solo crítica: ${umid}% — irrigação imediata necessária!` });
+  } else if (umid < 40) {
+    umidStatus = 'alert'; umidClass = 's-warn'; umidLabel = 'Baixa';
+    if (overallStatus !== 'danger') overallStatus = 'alert';
+    alerts.push({ type: 'warn', icon: '⚠️', msg: `Umidade baixa: ${umid}% — planejar irrigação nas próximas horas.` });
+  } else if (umid > 90) {
+    umidStatus = 'alert'; umidClass = 's-warn'; umidLabel = 'Saturado';
+    if (overallStatus !== 'danger') overallStatus = 'alert';
+    alerts.push({ type: 'warn', icon: '🌊', msg: `Solo saturado: ${umid}% — risco de encharcamento e fungos.` });
+  } else {
+    alerts.push({ type: 'ok', icon: '✅', msg: `Umidade adequada: ${umid}% — solo em boas condições.` });
+  }
+
+  // SMOKE
+  let smokeStatus = 'ok', smokeClass = 's-ok', smokeLabel = 'Limpo';
+  const isFire = smoke > 150;
+  if (smoke > 150) {
+    smokeStatus = 'danger'; smokeClass = 's-danger'; smokeLabel = '🔥 FUMAÇA';
+    overallStatus = 'danger';
+    alerts.push({ type: 'fire', icon: '🚒', msg: `FUMAÇA DETECTADA: ${smoke} ppm — possível incêndio! Evacue a área e acione os bombeiros (193).` });
+  } else if (smoke > 60) {
+    smokeStatus = 'alert'; smokeClass = 's-warn'; smokeLabel = 'Atenção';
+    if (overallStatus !== 'danger') overallStatus = 'alert';
+    alerts.push({ type: 'warn', icon: '💨', msg: `Partículas elevadas: ${smoke} ppm — verificar queima próxima.` });
+  } else {
+    alerts.push({ type: 'ok', icon: '✅', msg: `Ar limpo: ${smoke} ppm — sem fumaça detectada.` });
+  }
+
+  // update smoke overlay
+  if (isFire && !smokeAlert) {
+    smokeAlert = true;
+    document.getElementById('smoke-overlay').style.display = 'block';
+    document.getElementById('smoke-banner').style.display = 'block';
+  } else if (!isFire && smokeAlert) {
+    smokeAlert = false;
+    document.getElementById('smoke-overlay').style.display = 'none';
+    document.getElementById('smoke-banner').style.display = 'none';
+  }
+
+  // ── UPDATE UI ──
+  // temp
+  const tempPct = Math.min(100, (temp / 60) * 100);
+  const tempColor = temp > 40 ? '#f44336' : temp > 33 ? '#ff9800' : temp < 10 ? '#64b5f6' : '#4caf50';
+  document.getElementById('val-temp').textContent = temp;
+  document.getElementById('gauge-temp').style.width = tempPct + '%';
+  document.getElementById('gauge-temp').style.background = tempColor;
+  document.getElementById('status-temp').textContent = tempLabel;
+  document.getElementById('status-temp').className = 'sensor-status ' + tempClass;
+  const boxTemp = document.getElementById('box-temp');
+  boxTemp.className = 'sensor-box' + (tempStatus === 'danger' ? ' danger' : tempStatus === 'alert' ? ' warn' : '');
+
+  // umid
+  const umidPct = umid;
+  const umidColor = umid < 25 ? '#f44336' : umid < 40 ? '#ff9800' : umid > 90 ? '#1565c0' : '#2196f3';
+  document.getElementById('val-umid').textContent = umid.toFixed(1);
+  document.getElementById('gauge-umid').style.width = umidPct + '%';
+  document.getElementById('gauge-umid').style.background = umidColor;
+  document.getElementById('status-umid').textContent = umidLabel;
+  document.getElementById('status-umid').className = 'sensor-status ' + umidClass;
+  const boxUmid = document.getElementById('box-umid');
+  boxUmid.className = 'sensor-box' + (umidStatus === 'danger' ? ' danger' : umidStatus === 'alert' ? ' warn' : '');
+
+  // smoke
+  const smokePct = Math.min(100, (smoke / 500) * 100);
+  const smokeColor = smoke > 150 ? '#f44336' : smoke > 60 ? '#ff9800' : '#4caf50';
+  document.getElementById('val-smoke').textContent = smoke.toFixed(0);
+  document.getElementById('gauge-smoke').style.width = smokePct + '%';
+  document.getElementById('gauge-smoke').style.background = smokeColor;
+  document.getElementById('status-smoke').textContent = smokeLabel;
+  document.getElementById('status-smoke').className = 'sensor-status ' + smokeClass;
+  const boxSmoke = document.getElementById('box-smoke');
+  boxSmoke.className = 'sensor-box smoke-box' + (smokeStatus === 'danger' ? ' danger' : smokeStatus === 'alert' ? ' warn' : '');
+
+  // top stats
+  document.getElementById('stat-temp').textContent = temp + '°C';
+  document.getElementById('stat-umid').textContent = umid.toFixed(1) + '%';
+  document.getElementById('stat-smoke').textContent = smoke.toFixed(0) + ' ppm';
+  document.getElementById('stat-time').textContent = timeStr;
+
+  // alerts list
+  const alertsHTML = alerts.map(a => {
+    const cls = a.type === 'fire' ? 'alert-fire' : a.type === 'danger' ? 'alert-danger' : a.type === 'warn' ? 'alert-warn' : 'alert-ok';
+    return `<div class="alert-item ${cls}">
+      <div class="alert-icon">${a.icon}</div>
+      <div class="alert-body"><p>${a.msg}</p><p class="alert-time">${timeStr}</p></div>
+    </div>`;
+  }).join('');
+  document.getElementById('alerts-list').innerHTML = alertsHTML;
+
+  // station status & sidebar
+  const station = stations.find(s => s.id === selectedId);
+  if (station) {
+    station.status = overallStatus;
+    renderStationList();
+    updateSummary();
+  }
+
+  // history (keep last 20)
+  const statusLabel = overallStatus === 'danger' ? (isFire ? 'fire' : 'danger') : overallStatus === 'alert' ? 'alert' : 'ok';
+  const statusText = isFire ? 'Incêndio' : overallStatus === 'danger' ? 'Crítico' : overallStatus === 'alert' ? 'Atenção' : 'Normal';
+  history.unshift({ time: timeStr, temp, umid: umid.toFixed(1), smoke: smoke.toFixed(0), statusLabel, statusText });
+  if (history.length > 20) history.pop();
+
+  document.getElementById('history-tbody').innerHTML = history.map(r => `
+    <tr>
+      <td>${r.time}</td>
+      <td>${r.temp}°C</td>
+      <td>${r.umid}%</td>
+      <td>${r.smoke} ppm</td>
+      <td><span class="badge badge-${r.statusLabel}">${r.statusText}</span></td>
+    </tr>`).join('');
+}
+
+/* ── UPDATE SUMMARY ── */
+function updateSummary() {
+  document.getElementById('total-count').textContent = stations.length;
+  document.getElementById('ok-count').textContent = stations.filter(s => s.status === 'ok').length;
+  document.getElementById('warn-count').textContent = stations.filter(s => s.status === 'alert').length;
+  document.getElementById('danger-count').textContent = stations.filter(s => s.status === 'danger').length;
+}
+
+// smooth scroll
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    const t = document.querySelector(a.getAttribute('href'));
+    if (t) { e.preventDefault(); t.scrollIntoView({ behavior: 'smooth' }); }
+  });
+});
+</script>
+</body>
+</html>
